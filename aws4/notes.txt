@@ -1,0 +1,12 @@
+[
+    [
+        "nat-0de0eaf36835641a0",
+        null
+    ]
+]
+[
+    "18.141.30.150"
+]
+[
+    "018602188273.dkr.ecr.ap-southeast-1.amazonaws.com/devops-bootcamp/anip"
+]
