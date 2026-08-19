@@ -1,0 +1,36 @@
+- name: Sediakan web server
+  hosts: nodes
+  become: true
+  vars:
+    site_title: Armada Infratify
+    site_owner: Pasukan Platform
+    web_port: 80
+  tasks:
+    - name: Pasang nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: true
+    - name: Hidupkan servis nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: Tulis index.html
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+        mode: '644'
+# < bersambung
+    - name: Tulis config nginx
+      ansible.builtin.template:
+        src: nginx-site.conf.j2
+        dest: /etc/nginx/sites-available/default
+        mode: '644'
+      notify: Restart nginx
+
+  handlers:
+    - name: Restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
